@@ -13,14 +13,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Form(object):
     def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(363, 548)
+        Form.setObjectName("Calculator")
+        Form.resize(361, 588)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(Form.sizePolicy().hasHeightForWidth())
         Form.setSizePolicy(sizePolicy)
-        Form.setStyleSheet("#Form{\n"
+        Form.setStyleSheet("#Calculator{\n"
 "    background:#202020;\n"
 "    \n"
 "}\n"
@@ -36,7 +36,7 @@ class Ui_Form(object):
 "    background:#fa8911;\n"
 "    border:none;\n"
 "    font-family: Arial, Helvetica, sans-serif;\n"
-"    font-size:40px;\n"
+"    font-size:30px;\n"
 "    color:white;\n"
 "}\n"
 "QLineEdit{\n"
@@ -58,7 +58,7 @@ class Ui_Form(object):
         self.pushButton_6.setSizePolicy(sizePolicy)
         self.pushButton_6.setObjectName("pushButton_6")
         self.gridLayout.addWidget(self.pushButton_6, 2, 1, 1, 1)
-        self.pushButton_7 = QtWidgets.QPushButton(Form, clicked= lambda: self.press_it("Del"))
+        self.pushButton_7 = QtWidgets.QPushButton(Form, clicked= lambda: self.remove_it())
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -66,7 +66,7 @@ class Ui_Form(object):
         self.pushButton_7.setSizePolicy(sizePolicy)
         self.pushButton_7.setObjectName("pushButton_7")
         self.gridLayout.addWidget(self.pushButton_7, 2, 2, 1, 1)
-        self.pushButton_8 = QtWidgets.QPushButton(Form, clicked= lambda: self.press_it("%"))
+        self.pushButton_8 = QtWidgets.QPushButton(Form, clicked= lambda: self.press_it("**"))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -146,7 +146,7 @@ class Ui_Form(object):
         self.toolButton_4.setSizePolicy(sizePolicy)
         self.toolButton_4.setObjectName("toolButton_4")
         self.gridLayout.addWidget(self.toolButton_4, 6, 4, 1, 1)
-        self.pushButton_2 = QtWidgets.QPushButton(Form, clicked= lambda: self.press_it("."))
+        self.pushButton_2 = QtWidgets.QPushButton(Form, clicked= lambda: self.dot_it())
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -162,7 +162,7 @@ class Ui_Form(object):
         self.pushButton_3.setSizePolicy(sizePolicy)
         self.pushButton_3.setObjectName("pushButton_3")
         self.gridLayout.addWidget(self.pushButton_3, 7, 1, 1, 2)
-        self.toolButton_5 = QtWidgets.QToolButton(Form, clicked= lambda: self.press_it("="))
+        self.toolButton_5 = QtWidgets.QToolButton(Form, clicked= lambda: self.math_it())
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -223,8 +223,35 @@ class Ui_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
 ######################################################################
+    # Remove character
+    def remove_it(self):
+        # Grab what's on the screen already
+        screen = self.lineEdit_2.text()
+        # Remove last item in list/string
+        screen = screen[:-1]
+        # Output back to the screen
+        self.lineEdit_2.setText(screen)
 
+    #equal - Do the math
+    def math_it(self):
+        # Grab what's on the screen already
+        screen = self.lineEdit_2.text()
+        try:
+            # Do the math (Built-in function)
+            answer = eval(screen)    
+            # Output answer to the screen
+            self.lineEdit_2.setText(str(answer))
+        except:
+            self.lineEdit_2.setText("Error")
 
+    # Add a decimal    
+    def dot_it(self):
+        # Grab what's on the screen already
+        screen = self.lineEdit_2.text()
+        if screen[-1] == ".":
+            pass
+        else: 
+            self.lineEdit_2.setText(f'{screen}.')
 
     def press_it(self, pressed):
         if pressed == "C":
@@ -241,10 +268,10 @@ class Ui_Form(object):
 ######################################################################
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Calculator-Jirapat.W-Beta 1.0"))
         self.pushButton_6.setText(_translate("Form", "C"))
-        self.pushButton_7.setText(_translate("Form", "Del"))
-        self.pushButton_8.setText(_translate("Form", "%"))
+        self.pushButton_7.setText(_translate("Form", "DEL"))
+        self.pushButton_8.setText(_translate("Form", "xⁿ"))
         self.toolButton.setText(_translate("Form", "/"))
         self.pushButton_13.setText(_translate("Form", "7"))
         self.toolButton_2.setText(_translate("Form", "x"))
