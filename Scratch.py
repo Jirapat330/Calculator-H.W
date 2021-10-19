@@ -5,5 +5,3 @@ pygame.init #inititalize
 
 
 
-
-while Tr
